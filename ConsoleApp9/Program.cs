@@ -4,26 +4,31 @@ using static System.Console;
 
 static void WriteFile(string filePath)
 {
-    try
+
+    if (File.Exists(filePath))
     {
-    using (FileStream fs = new FileStream(filePath,
-    FileMode.Open, FileAccess.Write,
-    FileShare.None)) ;
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine(ex.Message);
-    }
-    finally 
-    {     // получаем данные для записи в файл
+        FileStream fs = new FileStream(filePath,
+        FileMode.Open, FileAccess.Write,
+        FileShare.None) ;
         WriteLine("Enter the data to write to the file: ");
-       
         string writeText = ReadLine();
-        // преобразуем строку в массив байт
         byte[] writeBytes = Encoding.Default.GetBytes(writeText);
-        // записываем данные в файл
         fs.Write(writeBytes, 0, writeBytes.Length);
         WriteLine("Information recorded!");
+        fs.Close();
+    }
+    else
+    {
+        WriteLine("File not found!");
+        FileStream fs = new FileStream(filePath,
+        FileMode.Create, FileAccess.Write,
+        FileShare.None);
+        WriteLine("Enter the data to write to the file: ");
+        string writeText = ReadLine();
+        byte[] writeBytes = Encoding.Default.GetBytes(writeText);
+        fs.Write(writeBytes, 0, writeBytes.Length);
+        WriteLine("Information recorded!");
+        fs.Close();
     }
 }
 static string ReadFile(string filePath)
@@ -41,7 +46,7 @@ static string ReadFile(string filePath)
     }
 }
 
-    string filePath = "test2.txt";
+    string filePath = "test3.txt";
     WriteFile(filePath);
     // выводим результат на консоль
     WriteLine($"\nData read from the file:{ ReadFile(filePath)}");
