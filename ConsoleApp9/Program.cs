@@ -2,7 +2,7 @@
 using System.IO;
 using static System.Console;
 
-static void WriteFile(string filePath,string n)
+static void WriteFile(string filePath,string n,string k)
 {
 
     if (File.Exists(filePath))
@@ -12,7 +12,7 @@ static void WriteFile(string filePath,string n)
         FileShare.None) ;
         WriteLine("Fio and bday: ");
         string writeText = ReadLine();
-        writeText = writeText + "\n strok" +n+", stolb"+ n;
+        writeText = writeText + "\nStrok " +n+", Stolb "+ n+k;
         byte[] writeBytes = Encoding.Default.GetBytes(writeText);
         fs.Write(writeBytes, 0, writeBytes.Length);
         
@@ -50,9 +50,9 @@ static string ReadFile(string filePath)
 
 int n = 5;
 string filePath = "test3.txt";
-    WriteFile(filePath,n.ToString());
+    
     // выводим результат на консоль
-    WriteLine($"\nData read from the file:{ ReadFile(filePath)}");
+    
 
 int[,] arrayint = new int[n,n];
 for (int i = 0; i < n; i++)
@@ -74,13 +74,16 @@ for (int i = 0; i < n; i++)
     for (int j = 0; j < n; j++)
         arrayfl[i, j] = (i + j+1)*(i+j+1)/7.1;
 
-/*for (int i = 0; i < n; i++)
+string Arrayfl="\n";
+for (int i = 0; i < n; i++)
 {
     for (int j = 0; j < n; j++)
     {
-        Console.Write(arrayfl[i, j]);
-        Console.Write(" ");
+        Arrayfl=Arrayfl+ arrayfl[i, j].ToString()+" ";
+        
     }
-    Console.WriteLine();
+    Arrayfl = Arrayfl + "\n";
 }
-*/
+
+WriteFile(filePath, n.ToString(),Arrayfl);
+WriteLine($"\nData read from the file:{ReadFile(filePath)}");
