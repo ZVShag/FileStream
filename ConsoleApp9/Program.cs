@@ -2,7 +2,7 @@
 using System.IO;
 using static System.Console;
 
-static void WriteFile(string filePath,string n,string k)
+static void WriteFile(string filePath,string n)
 {
 
     if (File.Exists(filePath))
@@ -12,7 +12,7 @@ static void WriteFile(string filePath,string n,string k)
         FileShare.None) ;
         WriteLine("Fio and bday: ");
         string writeText = ReadLine();
-        writeText = writeText + "\nStrok " +n+", Stolb "+ n+k;
+        writeText = writeText + "\nStrok " +n+", Stolb "+ n;
         byte[] writeBytes = Encoding.Default.GetBytes(writeText);
         fs.Write(writeBytes, 0, writeBytes.Length);
         
@@ -40,9 +40,7 @@ static string ReadFile(string filePath)
     FileShare.Read))
     {
         byte[] readBytes = new byte[(int)fs.Length];
-        // считываем данные из файла
         fs.Read(readBytes, 0, readBytes.Length);
-        // преобразуем байты в строку
         return Encoding.Default.
         GetString(readBytes);
     }
@@ -84,6 +82,6 @@ for (int i = 0; i < n; i++)
     }
     Arrayfl = Arrayfl + "\n";
 }
-
-WriteFile(filePath, n.ToString(),Arrayfl);
+string k=n.ToString();
+WriteFile(filePath,k);
 WriteLine($"\nData read from the file:{ReadFile(filePath)}");
